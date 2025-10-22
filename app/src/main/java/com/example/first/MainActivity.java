@@ -1,48 +1,63 @@
 package com.example.first;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
+
+    private int index = 0;
+    private String[] song_lyrics = {
+            "Song: Walking down the old street, lights are fading low...",
+            "Song: In my neighborhood, dreams still glow!",
+            "Song: Faces change but the heart remains...",
+            "Song: In my neighborhood, dreams still glow!"
+    };
 
     @Override
-    protected void onCreate(Bundle saved_instance_state)
-    {
-        super.onCreate(saved_instance_state);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn_show_time = findViewById(R.id.btn_show_time);
+        Button btnSong = findViewById(R.id.btnSong);
 
-        btn_show_time.setOnClickListener(v ->
-        {
-            Calendar next_lesson = Calendar.getInstance();
-            next_lesson.set(Calendar.HOUR_OF_DAY, 10);
-            next_lesson.set(Calendar.MINUTE, 0);
-            next_lesson.set(Calendar.SECOND, 0);
-
-            Calendar now = Calendar.getInstance();
-            if (now.after(next_lesson))
-            {
-                next_lesson.add(Calendar.DAY_OF_MONTH, 1);
+        btnSong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomToast(song_lyrics[index]);
+                index++;
+                if (index >= song_lyrics.length) index = 0;
             }
-
-            long diff_millis = next_lesson.getTimeInMillis() - now.getTimeInMillis();
-
-            long days = TimeUnit.MILLISECONDS.toDays(diff_millis);
-            long hours = TimeUnit.MILLISECONDS.toHours(diff_millis) % 24;
-            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff_millis) % 60;
-            long seconds = TimeUnit.MILLISECONDS.toSeconds(diff_millis) % 60;
-
-            @SuppressLint("DefaultLocale") String message = String.format("%d days %d hours %d minutes and %d seconds left", days, hours, minutes, seconds);
-
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         });
+    }
+
+    private void showCustomToast(String message) {
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 200);
+
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setPadding(30, 20, 30, 20);
+        layout.setBackgroundResource(R.drawable.toast_bg);
+
+        ImageView img = new ImageView(getApplicationContext());
+        img.setImageResource(R.drawable.watermelon); // 🍉
+
+        Button textView = new Button(getApplicationContext());
+        textView.setText(message);
+        textView.setTextColor(0xFFFFFFFF);
+        textView.setBackgroundColor(0x00000000);
+        textView.setTextSize(16f);
+
+        layout.addView(img);
+        layout.addView(textView);
+        toast.setView(layout);
+        toast.show();
     }
 }

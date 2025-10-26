@@ -3,19 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFD6E7"
+    android:background="#FFD1DC"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnSong"
-        android:layout_width="250dp"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show lyrics"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:backgroundTint="#EC407A"
-        android:padding="20dp"
+        android:text="Крестики нолики"
+        android:textColor="#880E4F"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:fontFamily="sans-serif-black" />
+
+    <GridLayout
+        android:id="@+id/grid_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:elevation="8dp"
-        android:fontFamily="sans-serif-medium" />
+        android:columnCount="3"
+        android:rowCount="3"
+        android:background="@drawable/grid_bg"
+        android:padding="8dp">
+
+        <Button
+            style="@style/TicTacButton" />
+        <Button
+            style="@style/TicTacButton" />
+        <Button
+            style="@style/TicTacButton" />
+
+        <Button
+            style="@style/TicTacButton" />
+        <Button
+            style="@style/TicTacButton" />
+        <Button
+            style="@style/TicTacButton" />
+
+        <Button
+            style="@style/TicTacButton" />
+        <Button
+            style="@style/TicTacButton" />
+        <Button
+            style="@style/TicTacButton" />
+    </GridLayout>
+
+    <Button
+        android:id="@+id/btn_new_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Game"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#EC407A"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/grid_layout"
+        android:layout_marginTop="40dp"
+        android:padding="14dp"
+        android:elevation="10dp"
+       />
+
 </RelativeLayout>
